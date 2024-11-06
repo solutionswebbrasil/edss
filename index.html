@@ -1,0 +1,497 @@
+```html
+<html>
+<head>
+  <base href="/" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empresa de Cursos e Treinamentos</title>
+  <style>
+    :root {
+      --primary: #1a4b8c;
+      --secondary: #3178c6;
+      --accent: #f3a712;
+      --light: #f4f7fb;
+      --dark: #2c3e50;
+      --gray: #95a5a6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+    }
+
+    .carousel {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+    }
+
+    .carousel-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(26, 75, 140, 0.7);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-button {
+      padding: 0.75rem 1.5rem;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #d98a0a;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 3;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .carousel-dot.active {
+      background: white;
+    }
+
+    /* Featured Courses */
+    .featured-courses {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .course-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .course-content {
+      padding: 1.5rem;
+    }
+
+    .course-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* Additional Sections */
+    .section {
+      padding: 5rem 2rem;
+      background-color: var(--light);
+      text-align: center;
+    }
+
+    .section h2 {
+      color: var(--primary);
+      margin-bottom: 2rem;
+    }
+
+    .section p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Clients Testimonials */
+    .testimonials {
+      background: #f4f7fb;
+      padding: 5rem 2rem;
+    }
+
+    .testimonials-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .testimonial {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial h4 {
+      color: var(--primary);
+    }
+
+    .testimonial span {
+      color: var(--gray);
+    }
+
+    /* Contact & Maps */
+    .contact-maps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--light);
+    }
+
+    .contact {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .maps {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .maps iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* WhatsApp Button */
+    .whatsapp-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    .whatsapp-button img {
+      width: 25px;
+      height: 25px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">EduTrain</div>
+      <div class="nav-links">
+        <a href="#sobre">Sobre</a>
+        <a href="#cursos">Cursos</a>
+        <a href="#forum">Fórum</a>
+        <a href="#contato">Contato</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="carousel">
+      <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1522170361041-fed65a3c0ade?fit=crop&w=1350&q=80&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1');"></div>
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?fit=crop&w=1350&q=80&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1');"></div>
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1494599948593-3e8083a1a629?fit=crop&w=1350&q=80&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1');"></div>
+    </div>
+    <div class="carousel-overlay"></div>
+    <div class="hero-content">
+      <h1>Transforme seu futuro com conhecimento</h1>
+      <p>Cursos e treinamentos especializados para impulsionar sua carreira</p>
+      <a href="#sobre" class="cta-button">Saiba Mais</a>
+    </div>
+    <div class="carousel-nav">
+      <div class="carousel-dot active"></div>
+      <div class="carousel-dot"></div>
+      <div class="carousel-dot"></div>
+    </div>
+  </section>
+
+  <section id="sobre" class="section">
+    <h2>Sobre Nós</h2>
+    <p>Somos uma empresa dedicada ao aperfeiçoamento contínuo através de cursos e treinamentos focados em transformar carreiras e vidas.</p>
+  </section>
+
+  <section id="cursos" class="featured-courses">
+    <h2 class="section-title">Cursos em Destaque</h2>
+    <div class="courses-grid">
+      <div class="course-card">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+          <rect width="300" height="200" fill="#f0f0f0"/>
+          <circle cx="150" cy="80" r="40" fill="#1a4b8c"/>
+          <rect x="75" y="140" width="150" height="10" fill="#3178c6"/>
+          <rect x="100" y="160" width="100" height="10" fill="#3178c6"/>
+        </svg>
+        <div class="course-content">
+          <h3 class="course-title">Gestão de Projetos</h3>
+          <p>Aprenda metodologias ágeis e tradicional para gerenciar projetos com eficiência.</p>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+          <rect width="300" height="200" fill="#f0f0f0"/>
+          <circle cx="120" cy="80" r="30" fill="#1a4b8c"/>
+          <circle cx="180" cy="80" r="30" fill="#3178c6"/>
+          <rect x="75" y="140" width="150" height="10" fill="#3178c6"/>
+          <rect x="100" y="160" width="100" height="10" fill="#3178c6"/>
+        </svg>
+        <div class="course-content">
+          <h3 class="course-title">Liderança e Gestão de Equipes</h3>
+          <p>Desenvolva habilidades essenciais para liderar equipes de alto desempenho.</p>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <svg width="300" height="200" viewBox="0 0 300 200">
+          <rect width="300" height="200" fill="#f0f0f0"/>
+          <path d="M150 40 L190 100 L110 100 Z" fill="#1a4b8c"/>
+          <rect x="110" y="120" width="80" height="40" fill="#3178c6"/>
+          <rect x="75" y="140" width="150" height="10" fill="#3178c6"/>
+          <rect x="100" y="160" width="100" height="10" fill="#3178c6"/>
+        </svg>
+        <div class="course-content">
+          <h3 class="course-title">Marketing Digital</h3>
+          <p>Estratégias e ferramentas para destacar sua marca no ambiente digital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="testimonials-container">
+      <div class="testimonial">
+        <p>"A EduTrain transformou minha carreira! Os cursos são completos e a dedicação dos instrutores faz a diferença."</p>
+        <h4>João Silva</h4>
+        <span>CEO na empresa X</span>
+      </div>
+      <div class="testimonial">
+        <p>"Recomendo para todos que querem aperfeiçoar suas habilidades profissionais. A estrutura de ensino é incrível."</p>
+        <h4>Maria Oliveira</h4>
+        <span>Gerente de Projetos na Y Corp</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="forum" class="section">
+    <h2>Fórum</h2>
+    <p>Participe de discussões, compartilhe conhecimentos e encontre respostas para suas dúvidas com outros alunos e especialistas.</p>
+  </section>
+
+  <section id="contato" class="contact-maps">
+    <div class="contact">
+      <h2>Contato</h2>
+      <p>Entre em contato conosco para saber mais sobre nossos cursos e tirar suas dúvidas. Estamos aqui para ajudar!</p>
+      <p>Email: contato@edutrain.com<br>Telefone: (11) 1234-5678</p>
+    </div>
+    <div class="maps">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0833143682316!2d-122.40641778426771!3d37.78583411521533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808c0f364181%3A0xbe3c2c6a8b34098b!2sGoogle!5e0!3m2!1spt-BR!2sbr!4v1615562106157!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 EduTrain. Todos os direitos reservados.</p>
+  </footer>
+
+  <div class="whatsapp-button">
+    <a href="https://wa.me/5511912345678" target="_blank" rel="noopener noreferrer">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp Logo" width="25" height="25"/>
+    </a>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+      } else {
+        navbar.style.background = 'white';
+        navbar.style.boxShadow = 'none';
+      }
+    });
+
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    let currentSlide = 0;
+
+    function showSlide(n) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+
+      slides[n].classList.add('active');
+      dots[n].classList.add('active');
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentSlide = index;
+        showSlide(currentSlide);
+      });
+    });
+
+    setInterval(nextSlide, 5000);
+  </script>
+</body>
+</html>
+```
